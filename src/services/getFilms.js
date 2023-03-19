@@ -12,15 +12,15 @@ export async function getFilms() {
   return response.data;
 }
 
-export async function getFilmById(filmId = 504949) {
+export async function getFilmById(filmId) {
   const response = await axios.get(
-    `${BASE_URL}movie/504949?api_key=${API_KEY}&language=en-US`
+    `${BASE_URL}movie/${filmId}?api_key=${API_KEY}&language=en-US`
   );
   console.log(response.data);
   return response.data;
 }
 
-export async function getFilmByQuery(query = 'batman') {
+export async function getFilmByQuery(query) {
   const response = await axios.get(
     `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
     // search/movie?api_key=${TOKEN}&language=en-US&&page=${params[1]}&include_adult=false
@@ -29,17 +29,17 @@ export async function getFilmByQuery(query = 'batman') {
   return response.data;
 }
 
-export async function getFilmCast() {
+export async function getFilmCast(filmId) {
   const response = await axios.get(
-    `${BASE_URL}movie/{movie_id}/credits?api_key=${API_KEY}&language=en-US`
+    `${BASE_URL}movie/${filmId}/credits?api_key=${API_KEY}&language=en-US`
   );
   console.log(response.data);
   return response.data;
 }
 
-export async function getFilmReviews() {
+export async function getFilmReviews(filmId) {
   const response = await axios.get(
-    `${BASE_URL}movie/{movie_id}/reviews?api_key=${API_KEY}&language=en-US&page=1`
+    `${BASE_URL}movie/${filmId}/reviews?api_key=${API_KEY}&language=en-US&page=1`
   );
   console.log(response.data);
   return response.data;

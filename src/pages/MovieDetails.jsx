@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, NavLink } from 'react-router-dom';
 import { getFilmById } from 'services/getFilms';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  // const film = getFilmById(movieId);
-  // console.log(film);
   const [film, setFilm] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -17,7 +15,6 @@ const MovieDetails = () => {
           return Promise.reject(new Error());
         }
         setFilm(data);
-        // console.log(film);
       })
       .catch(error => {
         console.log('error');
@@ -26,10 +23,30 @@ const MovieDetails = () => {
         setLoading(false);
       });
   }, [movieId]);
-  const poster = `https://image.tmdb.org/t/p/w780${film.poster_path}`;
-  const { title, original_title, release_date, vote_average, overview } = film;
-  // const releaseYear = release_date.slice(0, 4);
-  console.log(release_date);
+
+  const {
+    title,
+    original_title,
+    release_date,
+    vote_average,
+    overview,
+    genres,
+    poster_path,
+  } = film;
+
+  const poster = `https://image.tmdb.org/t/p/w780${poster_path}`;
+
+  const releaseYear = function (date = release_date) {
+    return date ? date.slice(0, 4) : 'year n/a';
+  };
+
+  const filmGenres = function (genresArray = genres) {
+    if (!genresArray) {
+      return 'n/a';
+    }
+    return genresArray.map(genre => genre.name).join(' ');
+  };
+
   return (
     <>
       <div className="movie__container">
@@ -43,7 +60,7 @@ const MovieDetails = () => {
         </div>
         <div className="movie__text">
           <h2 className="movie__name">
-            {original_title}({release_date})
+            {original_title} ({releaseYear()})
           </h2>
           <p>User score: {(vote_average * 10).toFixed(0)}%</p>
 
@@ -51,14 +68,18 @@ const MovieDetails = () => {
           <p className="movie__film-about">{overview}</p>
 
           <h4>Genres</h4>
-          <p>
-            {/* {genres.map(genre => {
-              return genre.name + '  ';
-            })} */}
-          </p>
+          <p>{filmGenres()}</p>
         </div>
       </div>
-      <div>Now showing product with id - {movieId}</div>
+      <p>Additional Information</p>
+      <ul>
+        <li>
+          <NavLink to="cast">Cast</NavLink>
+        </li>
+        <li>
+          <NavLink to="reviews">Reviews</NavLink>
+        </li>
+      </ul>
       <Outlet />
       {loading && <p>Loading...</p>}
     </>

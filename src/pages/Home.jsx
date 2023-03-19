@@ -10,8 +10,8 @@ const Home = () => {
     setLoading(true);
     getFilms()
       .then(data => {
-        console.log(data);
-        console.log(data.results);
+        // console.log(data);
+        // console.log(data.results);
         if (data.results.length === 0) {
           return Promise.reject(new Error());
         }
@@ -33,7 +33,7 @@ const Home = () => {
           films.map(({ id, title, name }) => {
             return (
               <li key={id}>
-                <NavLink to="/movies/:movieId">
+                <NavLink to={`/movies/${id}`}>
                   {title}
                   {name}
                 </NavLink>
