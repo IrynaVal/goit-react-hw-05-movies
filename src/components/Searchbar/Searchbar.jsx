@@ -1,4 +1,5 @@
 import { useState } from 'react';
+// import { useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { BsSearch } from 'react-icons/bs';
 // import { getFilmByQuery } from '../services/getFilms';
@@ -9,6 +10,7 @@ export const Searchbar = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
   //   const [filmsByQuery, setFilmsByQuery] = useState([]);
   //   const [loading, setLoading] = useState(false);
+  //   const [setSearchParams] = useSearchParams();
 
   const handleChange = evt => {
     setQuery(evt.target.value);
@@ -24,6 +26,7 @@ export const Searchbar = ({ onSubmit }) => {
     }
 
     onSubmit(query);
+    // setSearchParams({ query: evt.currentTarget.elements.query.value });
     resetForm();
   };
 

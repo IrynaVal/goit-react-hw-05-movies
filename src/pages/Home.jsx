@@ -1,6 +1,5 @@
 import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useState, useEffect } from 'react';
-// import { NavLink } from 'react-router-dom';
 import { getFilms } from '../services/getFilms';
 
 const Home = () => {
@@ -29,20 +28,7 @@ const Home = () => {
   return (
     <>
       <h2>Trending today</h2>
-      <MoviesList films={films} />
-      {/* <ul>
-        {films.length !== 0 &&
-          films.map(({ id, title, name }) => {
-            return (
-              <li key={id}>
-                <NavLink to={`/movies/${id}`}>
-                  {title}
-                  {name}
-                </NavLink>
-              </li>
-            );
-          })}
-      </ul> */}
+      {films.length !== 0 && <MoviesList films={films} />}
       {loading && <p>Loading...</p>}
     </>
   );

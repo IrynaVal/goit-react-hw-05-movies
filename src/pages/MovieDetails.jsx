@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useParams, Outlet, NavLink } from 'react-router-dom';
+import { useParams, Outlet, NavLink, useLocation } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { getFilmById } from 'services/getFilms';
+import { BackLink } from 'components/BackLink/BackLink';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [film, setFilm] = useState({});
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
+
   useEffect(() => {
     setLoading(true);
     getFilmById(movieId)
@@ -47,8 +52,12 @@ const MovieDetails = () => {
     return genresArray.map(genre => genre.name).join(' ');
   };
 
+  // const navigate = useNavigate();
+  // const handleClick = navigate('/home');
+
   return (
     <>
+      <BackLink to={backLinkHref}>Go back</BackLink>
       <div className="movie__container">
         <div className="movie__img">
           <img

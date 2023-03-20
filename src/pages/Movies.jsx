@@ -1,29 +1,28 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 // import { ColorRing } from 'react-loader-spinner';
 import { Searchbar } from '../components/Searchbar/Searchbar';
-// import { ImageGallery } from './ImageGallery/ImageGallery';
 // import { Button } from 'components/Button/Button';
 import { getFilmByQuery } from '../services/getFilms';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  // const [imgPerPage, setImgPerPage] = useState(12);
-  // const [imgPerPage] = useState(12);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const filmQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
     if (!searchQuery) {
       return;
     }
     setLoading(true);
-    getFilmByQuery(searchQuery, page)
+    getFilmByQuery(searchQuery)
       .then(data => {
         // console.log(data);
-        // console.log(data.hits);
         if (data.results === 0) {
           return Promise.reject(new Error());
         }
@@ -37,12 +36,20 @@ const Movies = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [searchQuery, page]);
+  }, [searchQuery]);
 
   const formSubmitHandler = searchQuery => {
     setSearchQuery(searchQuery);
     setFilms([]);
-    setPage(1);
+    // setPage(1);
+  };
+
+  // const updateQueryString = searchQuery => {
+  //   const nextParams = searchQuery !== '' ? { searchQuery } : {};
+  //   setSearchParams(nextParams);
+  // };
+  const updateQueryString = evt => {
+    setSearchParams({ query: evt.target.value });
   };
 
   // const handleLoad = () => {
@@ -59,22 +66,13 @@ const Movies = () => {
     // }}
     >
       <Toaster position="top-right" />
-      <Searchbar onSubmit={formSubmitHandler} />
-      {films.length !== 0 && (
-        <ul>
-          {films.length !== 0 &&
-            films.map(({ id, title, name }) => {
-              return (
-                <li key={id}>
-                  <NavLink to={`/movies/${id}`}>
-                    {title}
-                    {name}
-                  </NavLink>
-                </li>
-              );
-            })}
-        </ul>
-      )}
+      <Searchbar
+        onSubmit={formSubmitHandler}
+        value={filmQuery}
+        onChange={updateQueryString}
+      />
+
+      {films.length !== 0 && <MoviesList films={films} />}
       {loading && (
         <p>Loading...</p>
         // <ColorRing
