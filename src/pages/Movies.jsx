@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 // import { ColorRing } from 'react-loader-spinner';
 import { Searchbar } from '../components/Searchbar/Searchbar';
@@ -11,9 +10,6 @@ const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const filmQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
     if (!searchQuery) {
@@ -22,8 +18,8 @@ const Movies = () => {
     setLoading(true);
     getFilmByQuery(searchQuery)
       .then(data => {
-        // console.log(data);
-        if (data.results === 0) {
+        console.log(data.results);
+        if (data.results.length === 0) {
           return Promise.reject(new Error());
         }
         setFilms(data.results);
@@ -41,16 +37,15 @@ const Movies = () => {
   const formSubmitHandler = searchQuery => {
     setSearchQuery(searchQuery);
     setFilms([]);
-    // setPage(1);
   };
 
   // const updateQueryString = searchQuery => {
   //   const nextParams = searchQuery !== '' ? { searchQuery } : {};
   //   setSearchParams(nextParams);
   // };
-  const updateQueryString = evt => {
-    setSearchParams({ query: evt.target.value });
-  };
+  // const updateQueryString = evt => {
+  //   setSearchParams({ query: evt.target.value });
+  // };
 
   // const handleLoad = () => {
   //   setPage(prevState => prevState + 1);
@@ -68,8 +63,8 @@ const Movies = () => {
       <Toaster position="top-right" />
       <Searchbar
         onSubmit={formSubmitHandler}
-        value={filmQuery}
-        onChange={updateQueryString}
+        // value={filmQuery}
+        // onChange={updateQueryString}
       />
 
       {films.length !== 0 && <MoviesList films={films} />}

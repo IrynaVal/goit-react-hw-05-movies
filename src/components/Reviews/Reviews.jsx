@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import { getFilmReviews } from 'services/getFilms';
 
 export const Reviews = () => {
@@ -17,14 +18,13 @@ export const Reviews = () => {
         setReviews(data.results);
       })
       .catch(error => {
-        console.log('error');
+        toast.error('Sorry, there is no information about this movie cast.');
       })
       .finally(() => {
         setLoading(false);
       });
   }, [movieId]);
 
-  // const posterURL = `https://image.tmdb.org/t/p/w780`;
   return (
     <>
       {reviews.length !== 0 ? (

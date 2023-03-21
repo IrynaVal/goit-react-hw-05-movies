@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Outlet, NavLink, useLocation } from 'react-router-dom';
+import { Toaster, toast } from 'react-hot-toast';
 // import { useNavigate } from 'react-router-dom';
 import { getFilmById } from 'services/getFilms';
 import { BackLink } from 'components/BackLink/BackLink';
@@ -22,7 +23,7 @@ const MovieDetails = () => {
         setFilm(data);
       })
       .catch(error => {
-        console.log('error');
+        toast.error('Sorry, there is no information about this movie.');
       })
       .finally(() => {
         setLoading(false);
@@ -57,15 +58,11 @@ const MovieDetails = () => {
 
   return (
     <>
+      <Toaster position="top-right" />
       <BackLink to={backLinkHref}>Go back</BackLink>
       <div className="movie__container">
         <div className="movie__img">
-          <img
-            src={poster}
-            alt={title}
-            className="movie__poster"
-            // onError="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/488px-No-Image-Placeholder.svg.png';"
-          />
+          <img src={poster} alt={title} className="movie__poster" />
         </div>
         <div className="movie__text">
           <h2 className="movie__name">
