@@ -12,7 +12,7 @@ const Reviews = () => {
     setLoading(true);
     getFilmReviews(movieId)
       .then(data => {
-        console.log(data.results);
+        // console.log(data.results);
         if (!data) {
           return Promise.reject(new Error());
         }

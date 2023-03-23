@@ -1,5 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { MovieInfo, Poster, MovieDesc, AddInfo } from './MovieContainer.styled';
+import {
+  MovieInfo,
+  MoviePoster,
+  MovieDesc,
+  AddInfo,
+} from './MovieContainer.styled';
 import PropTypes from 'prop-types';
 
 export const MovieContainer = ({
@@ -28,9 +33,9 @@ export const MovieContainer = ({
   return (
     <>
       <MovieInfo>
-        <Poster>
+        <MoviePoster>
           <img src={poster} alt={title} />
-        </Poster>
+        </MoviePoster>
         <MovieDesc>
           <h2>
             {original_title} ({getReleaseYear()})

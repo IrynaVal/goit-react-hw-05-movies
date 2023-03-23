@@ -8,7 +8,7 @@ export const MovieInfo = styled.div`
   border-bottom: solid grey 2px;
 `;
 
-export const Poster = styled.div`
+export const MoviePoster = styled.div`
   width: 400px;
 `;
 export const MovieDesc = styled.div`

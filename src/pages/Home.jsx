@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Toaster, toast } from 'react-hot-toast';
 import { ColorRing } from 'react-loader-spinner';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 import { getFilms } from '../services/getFilms';
@@ -20,7 +19,7 @@ const Home = () => {
         setFilms(data.results);
       })
       .catch(error => {
-        toast.error('Sorry, there are no movies.');
+        console.log('error');
       })
       .finally(() => {
         setLoading(false);
@@ -29,7 +28,6 @@ const Home = () => {
 
   return (
     <>
-      <Toaster position="top-right" />
       <h2>Trending today</h2>
       {films.length !== 0 && <MoviesList films={films} />}
       {loading && (

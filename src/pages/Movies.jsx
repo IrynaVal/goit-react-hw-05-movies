@@ -22,7 +22,6 @@ const Movies = () => {
           return Promise.reject(new Error());
         }
         setFilms(data.results);
-        // console.log(films);
       })
       .catch(error => {
         toast.error(

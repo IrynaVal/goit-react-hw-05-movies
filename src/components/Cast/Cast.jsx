@@ -12,7 +12,7 @@ const Cast = () => {
     setLoading(true);
     getFilmCast(movieId)
       .then(data => {
-        console.log(data.cast);
+        // console.log(data.cast);
         if (data.cast.length === 0) {
           return Promise.reject(new Error());
         }
