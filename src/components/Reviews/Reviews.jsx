@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { ColorRing } from 'react-loader-spinner';
 import { getFilmReviews } from 'services/getFilms';
 
 export const Reviews = () => {
@@ -18,7 +18,7 @@ export const Reviews = () => {
         setReviews(data.results);
       })
       .catch(error => {
-        toast.error('Sorry, there is no information about this movie cast.');
+        console.log('error');
       })
       .finally(() => {
         setLoading(false);
@@ -42,7 +42,17 @@ export const Reviews = () => {
         <p>We don`t have any reviews for this movie.</p>
       )}
 
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{ marginLeft: 'auto', marginRight: 'auto' }}
+          wrapperClass="blocks-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
+      )}
     </>
   );
 };

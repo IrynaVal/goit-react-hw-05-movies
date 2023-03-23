@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { ColorRing } from 'react-loader-spinner';
 import { getFilmCast } from 'services/getFilms';
 
 export const Cast = () => {
@@ -18,7 +18,7 @@ export const Cast = () => {
         setCast(data.cast);
       })
       .catch(error => {
-        toast.error('Sorry, there is no information about this movie cast.');
+        console.log('error');
       })
       .finally(() => {
         setLoading(false);
@@ -26,6 +26,7 @@ export const Cast = () => {
   }, [movieId]);
 
   const posterURL = `https://image.tmdb.org/t/p/w780`;
+
   return (
     <>
       {cast.length !== 0 ? (
@@ -43,7 +44,17 @@ export const Cast = () => {
       ) : (
         <p>Sorry, there is no information about this movie cast.</p>
       )}
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{ marginLeft: 'auto', marginRight: 'auto' }}
+          wrapperClass="blocks-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
+      )}
     </>
   );
 };

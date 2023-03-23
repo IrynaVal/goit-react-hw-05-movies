@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { BsSearch } from 'react-icons/bs';
-
 import css from './Searchbar.module.css';
 import PropTypes from 'prop-types';
 
