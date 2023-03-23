@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ColorRing } from 'react-loader-spinner';
+import { ListItem } from './Reviews.styled';
 import { getFilmReviews } from 'services/getFilms';
 
-export const Reviews = () => {
+const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -31,10 +32,10 @@ export const Reviews = () => {
         <ul>
           {reviews.map(({ id, author, content }) => {
             return (
-              <li key={id}>
+              <ListItem key={id}>
                 <h4>Author: {author}</h4>
                 <p>{content}</p>
-              </li>
+              </ListItem>
             );
           })}
         </ul>
@@ -56,3 +57,5 @@ export const Reviews = () => {
     </>
   );
 };
+
+export default Reviews;

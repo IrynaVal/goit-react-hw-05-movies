@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Photo, ListItem } from './Cast.styled';
 import { ColorRing } from 'react-loader-spinner';
 import { getFilmCast } from 'services/getFilms';
 
-export const Cast = () => {
+const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,11 +34,11 @@ export const Cast = () => {
         <ul>
           {cast.map(({ id, profile_path, name, character }) => {
             return (
-              <li key={id}>
-                <img src={posterURL + profile_path} alt={name} />
+              <ListItem key={id}>
+                <Photo src={posterURL + profile_path} alt={name} />
                 <p>{name}</p>
                 <p>Character: {character}</p>
-              </li>
+              </ListItem>
             );
           })}
         </ul>
@@ -58,3 +59,5 @@ export const Cast = () => {
     </>
   );
 };
+
+export default Cast;

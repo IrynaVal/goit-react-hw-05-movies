@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { BsSearch } from 'react-icons/bs';
-import css from './Searchbar.module.css';
+import { SearchForm, StyledButton, FormInput } from './Searchbar.styled';
 import PropTypes from 'prop-types';
 
 export const Searchbar = ({ onSubmit }) => {
@@ -31,22 +31,18 @@ export const Searchbar = ({ onSubmit }) => {
   };
 
   return (
-    <form className={css.SearchForm} onSubmit={handleFormSubmit}>
-      <input
-        className={css.SearchForm_input}
+    <SearchForm onSubmit={handleFormSubmit}>
+      <FormInput
         type="text"
         autoComplete="off"
         autoFocus
-        placeholder="Search images and photos"
         value={filmQuery}
         onChange={handleChange}
       />
-      <button type="submit" className={css.SearchForm_button}>
-        <span className={css.SearchForm_button_label}>
-          <BsSearch size="20" fill="#000" />
-        </span>
-      </button>
-    </form>
+      <StyledButton type="submit">
+        <BsSearch size="20" fill="#000" />
+      </StyledButton>
+    </SearchForm>
   );
 };
 

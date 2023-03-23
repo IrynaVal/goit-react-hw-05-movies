@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { useRef } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
@@ -15,7 +15,7 @@ const MovieDetails = () => {
   const BackLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   // console.log(location);
-  console.log(BackLinkLocationRef.current);
+  // console.log(BackLinkLocationRef.current);
 
   useEffect(() => {
     setLoading(true);
@@ -40,7 +40,9 @@ const MovieDetails = () => {
       <Toaster position="top-right" />
       <BackLink to={BackLinkLocationRef.current}>Go back</BackLink>
       <MovieContainer film={film} />
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
       {loading && (
         <ColorRing
           visible={true}

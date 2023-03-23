@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { MovieInfo, Poster, MovieDesc, AddInfo } from './MovieContainer.styled';
 import PropTypes from 'prop-types';
 
 export const MovieContainer = ({
@@ -26,36 +27,34 @@ export const MovieContainer = ({
   };
   return (
     <>
-      <div className="movie__container">
-        <div className="movie__img">
-          <img src={poster} alt={title} className="movie__poster" />
-        </div>
-        <div className="movie__text">
-          <h2 className="movie__name">
+      <MovieInfo>
+        <Poster>
+          <img src={poster} alt={title} />
+        </Poster>
+        <MovieDesc>
+          <h2>
             {original_title} ({getReleaseYear()})
           </h2>
           <p>User score: {(vote_average * 10).toFixed(0)}%</p>
 
-          <h3 className="movie__about">Overview</h3>
-          {overview !== '' ? (
-            <p className="movie__film-about">{overview}</p>
-          ) : (
-            <p>n/a</p>
-          )}
-
+          <h3>Overview</h3>
+          {overview !== '' ? <p>{overview}</p> : <p>n/a</p>}
           <h4>Genres</h4>
           <p>{getFilmGenres()}</p>
-        </div>
-      </div>
-      <p>Additional Information</p>
-      <ul>
-        <li>
-          <NavLink to="cast">Cast</NavLink>
-        </li>
-        <li>
-          <NavLink to="reviews">Reviews</NavLink>
-        </li>
-      </ul>
+        </MovieDesc>
+      </MovieInfo>
+
+      <AddInfo>
+        <p>Additional Information</p>
+        <ul>
+          <li>
+            <NavLink to="cast">Cast</NavLink>
+          </li>
+          <li>
+            <NavLink to="reviews">Reviews</NavLink>
+          </li>
+        </ul>
+      </AddInfo>
     </>
   );
 };
