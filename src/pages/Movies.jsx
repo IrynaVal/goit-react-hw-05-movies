@@ -4,16 +4,22 @@ import { ColorRing } from 'react-loader-spinner';
 import { Searchbar } from '../components/Searchbar/Searchbar';
 import { getFilmByQuery } from '../services/getFilms';
 import { MoviesList } from 'components/MoviesList/MoviesList';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const filmQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
+    setSearchQuery(filmQuery);
+
     if (!searchQuery) {
       return;
     }
+
     setLoading(true);
     getFilmByQuery(searchQuery)
       .then(data => {
@@ -31,11 +37,10 @@ const Movies = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [searchQuery]);
+  }, [searchQuery, filmQuery]);
 
   const formSubmitHandler = searchQuery => {
     setSearchQuery(searchQuery);
-    // setFilms([]);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { StyledLink } from './MovieContainer.styled';
 import {
   MovieInfo,
   MoviePoster,
@@ -53,10 +53,10 @@ export const MovieContainer = ({
         <p>Additional Information</p>
         <ul>
           <li>
-            <NavLink to="cast">Cast</NavLink>
+            <StyledLink to="cast">Cast</StyledLink>
           </li>
           <li>
-            <NavLink to="reviews">Reviews</NavLink>
+            <StyledLink to="reviews">Reviews</StyledLink>
           </li>
         </ul>
       </AddInfo>

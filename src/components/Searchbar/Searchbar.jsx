@@ -16,6 +16,7 @@ export const Searchbar = ({ onSubmit }) => {
       return setSearchParams({});
     }
     setSearchParams({ query: evt.target.value });
+    // console.log(evt.target.value);
   };
 
   const handleFormSubmit = evt => {

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const MovieInfo = styled.div`
   display: flex;
@@ -22,4 +23,13 @@ export const MovieDesc = styled.div`
 export const AddInfo = styled.div`
   padding-bottom: 20px;
   border-bottom: solid grey 2px;
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: blue;
+  }
 `;
