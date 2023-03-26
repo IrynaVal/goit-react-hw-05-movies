@@ -7,15 +7,14 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
 import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get('query') ?? ''
+  );
   const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchParams] = useSearchParams();
-  const filmQuery = searchParams.get('query') ?? '';
 
   useEffect(() => {
-    setSearchQuery(filmQuery);
-
     if (!searchQuery) {
       return;
     }
@@ -37,17 +36,17 @@ const Movies = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [searchQuery, filmQuery]);
+  }, [searchQuery]);
 
   const formSubmitHandler = searchQuery => {
-    setSearchQuery(searchQuery);
+    setSearchQuery(searchQuery.trim());
+    setFilms([]);
   };
 
   return (
     <>
       <Toaster position="top-right" />
       <Searchbar onSubmit={formSubmitHandler} />
-
       {films.length !== 0 && <MoviesList films={films} />}
       {loading && (
         <ColorRing
@@ -63,5 +62,4 @@ const Movies = () => {
     </>
   );
 };
-
 export default Movies;

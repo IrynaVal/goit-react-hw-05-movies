@@ -15,19 +15,18 @@ export const Searchbar = ({ onSubmit }) => {
     if (evt.target.value === '') {
       return setSearchParams({});
     }
-    setSearchParams({ query: evt.target.value });
+    setSearchParams({ query: evt.target.value.trim().toLowerCase() });
     // console.log(evt.target.value);
   };
 
   const handleFormSubmit = evt => {
     evt.preventDefault();
-    if (!query) {
+    if (!query || query === '') {
       toast.error(
         'Sorry, there are no movies matching your search query. Please try again.'
       );
       return;
     }
-
     onSubmit(query);
   };
 
@@ -46,7 +45,6 @@ export const Searchbar = ({ onSubmit }) => {
     </SearchForm>
   );
 };
-
 Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
